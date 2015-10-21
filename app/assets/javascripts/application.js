@@ -18,6 +18,7 @@
 //= require redactor-rails/plugins
 //= require redactor-rails/video
 //= require redactor-rails/config
+//= require bootstrap-datepicker
 //= require_tree .
 
 

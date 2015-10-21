@@ -35,6 +35,7 @@ gem "carrierwave"
 gem "mini_magick"
 gem "fog"
 gem "rails_admin"
+gem "bootstrap-datepicker-rails"
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
