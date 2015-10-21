@@ -15,13 +15,13 @@
     <%= f.label :title %><br>
     <%= f.text_field :title %>
   </div>
-  <div class="field">
-    <%= f.label :posted_at %><br>
-    <%= f.datetime_select :posted_at %>
+  <div class="form-group">
+    <%= f.label :description %><br>
+    <%= f.text_area :description, :class => "redactor", :rows => 40, :cols => 120  %>
   </div>
   <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description, :class => 'wysihtml5' %>
+    <%= f.label :posted_at %><br>
+    <%= f.text_field :posted_at, :class => "datepicker" %>
   </div>
   <div class="field">
     <%= f.label :amount_requested %><br>
@@ -32,3 +32,12 @@
     <%= f.submit class: 'btn btn-primary' %>
   </div>
 <% end %>
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.datepicker').datepicker({
+      format: 'yyyy/mm/dd'
+    });
+  });
+</script>
