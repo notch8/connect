@@ -1,8 +1,8 @@
 Organization.create title: "Organization1", access_code: "testing"
 
-user = User.create name: "admin", email: "admin@example.com", password: "testing123", organization_id: 1, access_code: "testing"
+user = User.new name: "admin", email: "admin@example.com", password: "testing123", organization_id: 1, access_code: "testing"
 user.add_role "admin"
-user.update
+user.save
 
 User.create name: "user1", email: "user1@example.com", password: "testing123", organization_id: 1, access_code: "testing"
 
