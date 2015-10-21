@@ -19,6 +19,8 @@
                 <% end %>
               <% end %>
               |
+              <%= link_to 'Admin', rails_admin_path %>
+              |
               <%= link_to 'Update Profile', edit_user_path(current_user) %>
               |
               <%= link_to 'Sign Out', destroy_user_session_path, :method => :delete %>
