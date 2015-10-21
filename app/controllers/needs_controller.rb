@@ -1,6 +1,5 @@
 class NeedsController < ApplicationController
   before_action :set_need, only: [:show, :edit, :update, :destroy]
-  before_action :ensure_admin, only: [:index, :edit, :update, :destroy, :new, :create]
 
   # GET /needs
   # GET /needs.json

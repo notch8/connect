@@ -9,15 +9,6 @@ class ApplicationController < ActionController::Base
     root_path
   end
 
-  def ensure_admin
-    # debugger
-    # unless current_donor.present? && current_donor.is_admin?
-    #   redirect_to root_path, alert: 'You are not authorized to do that.'
-    # else
-    #   return true
-    # end
-  end
-
   def current_organization
     Organization.first
   end

@@ -1,6 +1,5 @@
 class DonorsController < ApplicationController
   before_action :authenticate_donor!
-  before_action :ensure_admin, only: [:index, :create, :new, :destroy, :show]
   before_action :set_donor, only: [:show, :edit, :update, :destroy]
 
   # GET /donors
