@@ -16,10 +16,10 @@
               <% if current_user.is_admin? %>
                 <%= link_to messages_path do %>
                   <span><i class='glyphicon glyphicon-envelope'></i></span> Send Message
+                  |
+                  <%= link_to 'Admin', rails_admin_path %>
                 <% end %>
               <% end %>
-              |
-              <%= link_to 'Admin', rails_admin_path %>
               |
               <%= link_to 'Update Profile', edit_user_path(current_user) %>
               |
