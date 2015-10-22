@@ -60,35 +60,44 @@ RSpec.describe DonationsController, type: :controller do
 
       # this test breaks randomly because Braintree responds with a 422 about half the time.
       it "creates a new Donation" do
-        expect {
-          post :create, valid_donation_params
-        }.to change(Donation, :count).by(1)
+        VCR.use_cassette 'successful response' do        
+          expect {
+            post :create, valid_donation_params
+          }.to change(Donation, :count).by(1)
+        end
       end
 
       it "assigns a newly created donation as @donation" do
-        post :create, valid_donation_params
-        expect(assigns(:donation)).to be_a(Donation)
-        expect(assigns(:donation)).to be_persisted
+        VCR.use_cassette 'successful response' do
+          post :create, valid_donation_params
+          expect(assigns(:donation)).to be_a(Donation)
+          expect(assigns(:donation)).to be_persisted          
+        end
       end
 
       it "redirects to the created donation" do
-        post :create, valid_donation_params
-        expect(response).to redirect_to(Donation.last)
+        VCR.use_cassette 'successful response' do
+          post :create, valid_donation_params
+          expect(response).to redirect_to(Donation.last)
+        end
       end
     end
 
     context "with invalid params" do
       let(:invalid_donation_attributes) { attributes_for(:donation, need_id: Need.first.id, amount_requested: "hat" ) }
 
-
       it "assigns a newly created but unsaved donation as @donation" do
-        post :create, invalid_donation_params
-        expect(assigns(:donation)).to be_a_new(Donation)
+        VCR.use_cassette 'successful response' do
+          post :create, invalid_donation_params
+          expect(assigns(:donation)).to be_a_new(Donation)
+        end
       end
 
       it "re-renders the 'new' template" do
-        post :create, invalid_donation_params
-        expect(response).to render_template("new")
+        VCR.use_cassette 'successful response' do
+          post :create, invalid_donation_params
+          expect(response).to render_template("new")
+        end
       end
     end
   end

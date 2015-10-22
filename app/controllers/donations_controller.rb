@@ -35,7 +35,6 @@ class DonationsController < ApplicationController
           current_user.braintree_payment_method_token = @result.transaction.credit_card_details.token
           current_user.save
         end
-
         format.html { redirect_to @donation.need, notice: 'Donation was successfully created.' }
         format.json { render :show, status: :created, location: @donation }
       else
