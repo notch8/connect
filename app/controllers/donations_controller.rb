@@ -3,29 +3,21 @@ class DonationsController < ApplicationController
   before_action :authenticate_user!
   before_action :ensure_admin, only: [:index, :edit, :update, :destroy, :show]
 
-  # GET /donations
-  # GET /donations.json
   def index
     @donations = Donation.all
   end
 
-  # GET /donations/1
-  # GET /donations/1.json
   def show
   end
 
-  # GET /donations/new
   def new
     @donation = Donation.new(donation_params)
     @client_token = Braintree::ClientToken.generate
   end
 
-  # GET /donations/1/edit
   def edit
   end
 
-  # POST /donations
-  # POST /donations.json
   def create
     @result = Braintree::Transaction.sale(
         :amount => params[:donation][:amount].gsub('$', ''),
@@ -53,8 +45,6 @@ class DonationsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /donations/1
-  # PATCH/PUT /donations/1.json
   def update
     respond_to do |format|
       if @donation.update(donation_params)
@@ -67,8 +57,6 @@ class DonationsController < ApplicationController
     end
   end
 
-  # DELETE /donations/1
-  # DELETE /donations/1.json
   def destroy
     @donation.destroy
     respond_to do |format|
@@ -78,12 +66,10 @@ class DonationsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_donation
       @donation = Donation.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def donation_params
       params.require(:donation).permit(:amount, :need_id, :user_id, :number, :cvv, :month, :year, :payment_method_nonce)
     end
