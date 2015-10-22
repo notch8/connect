@@ -1,5 +1,6 @@
 require 'rails_helper'
 RSpec.describe DonationsController, type: :controller do
+  before(:each) { sign_in user }
 
   let!(:user){ FactoryGirl.create(:user) }
   let!(:admin_user){ FactoryGirl.create(:admin_user) }
@@ -26,9 +27,10 @@ RSpec.describe DonationsController, type: :controller do
 
   describe "GET #new" do
     it "assigns a new donation as @donation" do
-      sign_in user
-      get :new, {:donation => attributes_for(:donation)}
-      expect(assigns(:donation)).to be_a_new(Donation)
+      VCR.use_cassette 'braintree_token' do        
+        get :new, {:donation => attributes_for(:donation)}
+        expect(assigns(:donation)).to be_a_new(Donation)
+      end
     end
   end
 
@@ -40,7 +42,6 @@ RSpec.describe DonationsController, type: :controller do
   end
 
   describe "POST #create" do
-    before(:each) { sign_in user }
 
     let(:valid_donation_params) {
       {
@@ -51,7 +52,7 @@ RSpec.describe DonationsController, type: :controller do
 
     let(:invalid_donation_params) {
       {
-        donation: attributes_for(:donation, need_id: Need.first.id, amount_requested: "hat" ),
+        donation: attributes_for(:donation, need_id: Need.first.id, amount: "hat" ),
         payment_method_nonce: "fake-valid-nonce"        
       }
     }
@@ -78,13 +79,12 @@ RSpec.describe DonationsController, type: :controller do
       it "redirects to the created donation" do
         VCR.use_cassette 'successful response' do
           post :create, valid_donation_params
-          expect(response).to redirect_to(Donation.last)
+          expect(response).to redirect_to(Donation.last.need)
         end
       end
     end
 
     context "with invalid params" do
-      let(:invalid_donation_attributes) { attributes_for(:donation, need_id: Need.first.id, amount_requested: "hat" ) }
 
       it "assigns a newly created but unsaved donation as @donation" do
         VCR.use_cassette 'successful response' do
@@ -103,6 +103,7 @@ RSpec.describe DonationsController, type: :controller do
   end
 
   describe "PUT #update" do
+    before(:each) { sign_in admin_user }
     context "with valid params" do
       let(:new_attributes) {
         {amount: 1111}
@@ -111,34 +112,38 @@ RSpec.describe DonationsController, type: :controller do
       it "updates the requested donation" do
         put :update, {:id => donation.to_param, :donation => new_attributes}
         donation.reload
-        expect (Donation.last.amount).to be(1111)
+        expect(Donation.last.amount).to eq(new_attributes[:amount])
       end
 
       it "assigns the requested donation as @donation" do
-        put :update, {:id => donation.to_param, :donation => valid_donation_attributes}
+        put :update, {:id => donation.to_param, :donation => new_attributes}
         expect(assigns(:donation)).to eq(donation)
       end
 
       it "redirects to the donation" do
-        put :update, {:id => donation.to_param, :donation => valid_donation_attributes}
+        put :update, {:id => donation.to_param, :donation => new_attributes}
         expect(response).to redirect_to(donation)
       end
     end
 
     context "with invalid params" do
+      let(:invalid_new_attributes) {
+        { amount: "hat" }
+      }
       it "assigns the donation as @donation" do
-        put :update, {:id => donation.to_param, :donation => invalid_donation_attributes}
+        put :update, {:id => donation.to_param, :donation => invalid_new_attributes}
         expect(assigns(:donation)).to eq(donation)
       end
 
       it "re-renders the 'edit' template" do
-        put :update, {:id => donation.to_param, :donation => invalid_donation_attributes}
+        put :update, {:id => donation.to_param, :donation => invalid_new_attributes}
         expect(response).to render_template("edit")
       end
     end
   end
 
   describe "DELETE #destroy" do
+    before(:each) { sign_in admin_user }
     it "destroys the requested donation" do
       expect {
         delete :destroy, {:id => donation.to_param}
