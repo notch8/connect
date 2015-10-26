@@ -3,9 +3,6 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.0'
 
 gem "bootstrap-datepicker-rails"
-gem "carrierwave"
-gem "fog"
-gem "fog"
 gem "mini_magick"
 gem "rails_admin"
 gem 'auto_tagger', :require => false
@@ -20,7 +17,6 @@ gem 'fog'
 gem 'friendly_id'
 gem 'jbuilder', '~> 2.0'
 gem 'jquery-rails'
-gem 'mini_magick'
 gem 'omniauth-facebook'
 gem 'paperclip', '~> 4.2'
 gem 'pg'
