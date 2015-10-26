@@ -7,7 +7,7 @@ class Need < ActiveRecord::Base
   extend FriendlyId
   friendly_id :title, use: :slugged
 
-  has_attached_file :image, :styles => { :medium => "300x300#", :thumb => "100x100#" }, :default_url => "/images/:style/missing.png"
+  has_attached_file :image, :styles => { :medium => "300x300#", :thumb => "100x100#" }, :default_url => ":placeholder"
   validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 
   validates :amount_requested, numericality: { greater_than: 0 }

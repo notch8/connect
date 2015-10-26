@@ -2,7 +2,7 @@ class Organization < ActiveRecord::Base
   has_many :needs
   has_many :users
 
-  has_attached_file :image, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "missing.png"
+  has_attached_file :image, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => ":placeholder"
   validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
   
 end
