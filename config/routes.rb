@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
   devise_for :users, controllers: { 
     confirmations: 'users/confirmations',
     passwords: 'users/passwords',
@@ -6,7 +7,10 @@ Rails.application.routes.draw do
     sessions: 'users/sessions',
     unlocks: 'users/unlocks'
   }
+
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   mount RedactorRails::Engine => '/redactor_rails'
+
   devise_for :donors, :controllers => { :omniauth_callbacks => "donors/omniauth_callbacks" }
 
   resources :messages

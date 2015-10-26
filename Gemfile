@@ -5,7 +5,9 @@ gem 'rails', '4.2.0'
 gem "bootstrap-datepicker-rails"
 gem "carrierwave"
 gem "fog"
+gem "fog"
 gem "mini_magick"
+gem "rails_admin"
 gem 'auto_tagger', :require => false
 gem 'aws-sdk', '~> 1.5.7'
 gem 'bootstrap-sass', '~> 3.3.4'

@@ -16,6 +16,8 @@
               <% if current_user.has_role? :admin %>
                 <%= link_to messages_path do %>
                   <span><i class='glyphicon glyphicon-envelope'></i></span> Send Message
+                  |
+                  <%= link_to 'Admin', rails_admin_path %>
                 <% end %>
               <% end %>
               |
