@@ -1,6 +1,6 @@
 class SentMessage < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :donor
   belongs_to :message
 
-  validates :user, presence: true
+  validates :donor, presence: true
 end

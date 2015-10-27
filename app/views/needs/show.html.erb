@@ -76,15 +76,15 @@
       </div>
     </div>
 
-    <div id='user-images'>
-      <% @need.users.uniq.in_groups_of(6) do |group| %>
+    <div id='donor-images'>
+      <% @need.donors.uniq.in_groups_of(6) do |group| %>
         <div class='row'>
-          <% group.each do |user| %>
-            <% next unless user %>
-            <div class='col-md-2 user-image'>
-              <%= image_tag user.image_url(:medium), :class => 'img-responsive' %>
+          <% group.each do |donor| %>
+            <% next unless donor %>
+            <div class='col-md-2 donor-image'>
+              <%= image_tag donor.image_url(:medium), :class => 'img-responsive' %>
               <br />
-              <%= user.name %>
+              <%= donor.name %>
             </div>
           <% end %>
         </div>
@@ -92,7 +92,7 @@
     </div>
 
     <div class='col-md-2 col-md-offset-8'>
-      <% if current_user && current_user.is_admin? %>
+      <% if current_donor && current_donor.is_admin? %>
         <%= link_to 'Edit Need', edit_need_path(@need), class: 'btn btn-info' %>
       <% end %>
     </div>

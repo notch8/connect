@@ -7,7 +7,7 @@
     <tr>
       <th>Amount</th>
       <th>Need</th>
-      <th>User</th>
+      <th>Donor</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -17,7 +17,7 @@
       <tr>
         <td><%= donation.amount %></td>
         <td><%= donation.need_id %></td>
-        <td><%= donation.user_id %></td>
+        <td><%= donation.donor_id %></td>
         <td><%= link_to 'Show', donation %></td>
         <td><%= link_to 'Edit', edit_donation_path(donation) %></td>
         <td><%= link_to 'Destroy', donation, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -13,7 +13,7 @@
         <div class='col-md-4 col-md-offset-8'>
           <div class='pull-right'>
             <% if user_signed_in? %>
-              <% if current_user.is_admin? %>
+              <% if current_user.has_role? :admin %>
                 <%= link_to messages_path do %>
                   <span><i class='glyphicon glyphicon-envelope'></i></span> Send Message
                   |
@@ -24,9 +24,17 @@
               <%= link_to 'Update Profile', edit_user_path(current_user) %>
               |
               <%= link_to 'Sign Out', destroy_user_session_path, :method => :delete %>
-              <%= image_tag current_user.image_url, :width => '20px' %>
+
+            <% elsif donor_signed_in? %>
+              |
+              <%= link_to 'Update Profile', edit_donor_path(current_donor) %>
+              |
+              <%= link_to 'Sign Out', destroy_donor_session_path, :method => :delete %>
+              <%= image_tag current_donor.image_url, :width => '20px' %>
             <% else %>
-              <%= link_to 'Sign In', new_user_session_path %>
+              <%= link_to 'Donor Sign In', new_donor_session_path %>
+              |
+              <%= link_to 'User Sign In', new_user_session_path %>
             <% end %>
           </div>
         </div>
@@ -35,7 +43,7 @@
         <div class='col-md-9'>
           <%= link_to root_path do %>
             <% if current_organization %>
-              <%= image_tag current_organization.image.url, class: 'img-responsive' %>
+              <%= image_tag current_organization.image.url(:thumb), class: 'img-responsive' %>
             <% else %>
               <%= image_tag 'c2n-logo.png' %>
             <% end %>

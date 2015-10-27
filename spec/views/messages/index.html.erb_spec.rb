@@ -6,12 +6,12 @@ RSpec.describe "messages/index", type: :view do
       Message.create!(
         :need_id => 1,
         :body => "Body",
-        :user_id => 2
+        :donor_id => 2
       ),
       Message.create!(
         :need_id => 1,
         :body => "Body",
-        :user_id => 2
+        :donor_id => 2
       )
     ])
   end

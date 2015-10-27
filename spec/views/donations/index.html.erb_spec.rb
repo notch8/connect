@@ -6,12 +6,12 @@ RSpec.describe "donations/index", type: :view do
       Donation.create!(
         :amount => "9.99",
         :need_id => 1,
-        :user_id => 2
+        :donor_id => 2
       ),
       Donation.create!(
         :amount => "9.99",
         :need_id => 1,
-        :user_id => 2
+        :donor_id => 2
       )
     ])
   end

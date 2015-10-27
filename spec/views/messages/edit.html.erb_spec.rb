@@ -5,7 +5,7 @@ RSpec.describe "messages/edit", type: :view do
     @message = assign(:message, Message.create!(
       :need_id => 1,
       :body => "MyString",
-      :user_id => 1
+      :donor_id => 1
     ))
   end
 
@@ -18,7 +18,7 @@ RSpec.describe "messages/edit", type: :view do
 
       assert_select "input#message_body[name=?]", "message[body]"
 
-      assert_select "input#message_user_id[name=?]", "message[user_id]"
+      assert_select "input#message_donor_id[name=?]", "message[donor_id]"
     end
   end
 end

@@ -1,7 +1,6 @@
 class DonationsController < ApplicationController
   before_action :set_donation, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!
-  before_action :ensure_admin, only: [:index, :edit, :update, :destroy, :show]
+  before_action :authenticate_donor!
 
   # GET /donations
   # GET /donations.json
@@ -38,10 +37,10 @@ class DonationsController < ApplicationController
     raise @result.errors.inspect unless @result.success?
     respond_to do |format|
       if @result.success? && @donation.save
-        if current_user
-          current_user.braintree_last_4               = @result.transaction.credit_card_details.last_4
-          current_user.braintree_payment_method_token = @result.transaction.credit_card_details.token
-          current_user.save
+        if current_donor
+          current_donor.braintree_last_4               = @result.transaction.credit_card_details.last_4
+          current_donor.braintree_payment_method_token = @result.transaction.credit_card_details.token
+          current_donor.save
         end
 
         format.html { redirect_to @donation.need, notice: 'Donation was successfully created.' }
@@ -85,6 +84,6 @@ class DonationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def donation_params
-      params.require(:donation).permit(:amount, :need_id, :user_id, :number, :cvv, :month, :year, :payment_method_nonce)
+      params.require(:donation).permit(:amount, :need_id, :donor_id, :number, :cvv, :month, :year, :payment_method_nonce)
     end
 end

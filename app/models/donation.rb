@@ -1,6 +1,6 @@
 class Donation < ActiveRecord::Base
   belongs_to :need
-  belongs_to :user
+  belongs_to :donor
   validates :amount, numericality: { greater_than: 0 }
 
   after_create :update_need_total

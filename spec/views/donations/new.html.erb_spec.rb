@@ -5,7 +5,7 @@ RSpec.describe "donations/new", type: :view do
     assign(:donation, Donation.new(
       :amount => "9.99",
       :need_id => 1,
-      :user_id => 1
+      :donor_id => 1
     ))
   end
 
@@ -18,7 +18,7 @@ RSpec.describe "donations/new", type: :view do
 
       assert_select "input#donation_need_id[name=?]", "donation[need_id]"
 
-      assert_select "input#donation_user_id[name=?]", "donation[user_id]"
+      assert_select "input#donation_donor_id[name=?]", "donation[donor_id]"
     end
   end
 end

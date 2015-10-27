@@ -5,7 +5,7 @@ RSpec.describe "messages/show", type: :view do
     @message = assign(:message, Message.create!(
       :need_id => 1,
       :body => "Body",
-      :user_id => 2
+      :donor_id => 2
     ))
   end
 

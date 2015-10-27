@@ -11,24 +11,62 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </div>
-  <div class="form-group">
-    <%= f.label :description %><br>
-    <%= f.text_area :description, :class => "redactor", :rows => 40, :cols => 120  %>
-  </div>
-  <div class="field">
-    <%= f.label :posted_at %><br>
-    <%= f.text_field :posted_at, :class => "datepicker" %>
-  </div>
-  <div class="field">
-    <%= f.label :amount_requested %><br>
-    <%= f.text_field :amount_requested %>
-  </div>
-  <%= f.file_field :image %>
-  <div class="actions">
-    <%= f.submit class: 'btn btn-primary' %>
+  <div class="row">
+    <div class="col-md-8">
+      <div class="field edit-need-title">
+        <%= f.text_field :title, placeholder: "Title" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :description %><br>
+        <%= f.text_area :description, :class => "redactor", placeholder: "Edit your Need's description here. You can add images and formating.", style: "width: 100%; height: 15em;"  %>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="field">
+        <%= f.label :post_at %><br>
+        <%= f.text_field :posted_at, :class => "datepicker" %>
+      </div>
+      <div class="field">
+        <%= f.label :amount_requested %><br>
+        <%= f.text_field :amount_requested %>
+      </div>
+      <div>
+        $XXXX funded to date
+        <br>
+        $XXXX still needed
+      </div>
+      <br><br>
+      <div class="row">
+        <div class="col-md-4">
+          <select class="easyui-combobox", style: "width: 100%" >
+            <option>$5</option>
+            <option>$5</option>
+          </select>
+        </div>
+        <div class="col-md-8">
+          <%= f.button :Donate, :class => "btn btn-sm btn-disabled", :disabled => true%>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="actions">
+            <%= f.submit class: 'btn btn-primary' %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 <% end %>
+<div id="donor-images">
+  <div class="row">
+    <% 5.times do |index| %>
+      <div class='col-md-2 donor-image'>
+        <img src="https://placekitten.com/165/165" alt="example donor">
+        <br>
+        example donor <%= index + 1%>
+      </div>
+    <% end %>
+  </div>
+</div>
+<br>

@@ -1,6 +1,5 @@
 class MessagesController < ApplicationController
   before_action :set_message, only: [:show, :edit, :update, :destroy]
-  before_action :ensure_admin
 
   # GET /messages
   # GET /messages.json
@@ -17,16 +16,16 @@ class MessagesController < ApplicationController
   def new
     @message = Message.new
     @need = Need.first
-    @need.users.each do |user|
-      @message.sent_messages.build(user: user)
+    @need.donors.each do |donor|
+      @message.sent_messages.build(donor: donor)
     end
   end
 
   # GET /messages/1/edit
   def edit
     @need = @message.need
-    @need.users.each do |user|
-      @message.sent_messages.build(user_id: user.id)
+    @need.donors.each do |donor|
+      @message.sent_messages.build(donor_id: donor.id)
     end
   end
 
@@ -55,7 +54,7 @@ class MessagesController < ApplicationController
         format.json { render :show, status: :ok, location: @message }
       else
         @need = @message.need
-        @message.sent_messages = @message.sent_messages.reject {|message| message.user.blank?}
+        @message.sent_messages = @message.sent_messages.reject {|message| message.donor.blank?}
 
         format.html { render :edit }
         format.json { render json: @message.errors, status: :unprocessable_entity }
@@ -81,6 +80,6 @@ class MessagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def message_params
-      params.require(:message).permit(:need_id, :subject, :body, :sent_at, :user_id, :sent_messages_attributes => [:user_id])
+      params.require(:message).permit(:need_id, :subject, :body, :sent_at, :donor_id, :sent_messages_attributes => [:donor_id])
     end
 end

@@ -1,1 +1,1 @@
-json.extract! @donation, :id, :amount, :need_id, :user_id, :created_at, :updated_at
+json.extract! @donation, :id, :amount, :need_id, :donor_id, :created_at, :updated_at

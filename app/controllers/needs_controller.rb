@@ -1,6 +1,5 @@
 class NeedsController < ApplicationController
   before_action :set_need, only: [:show, :edit, :update, :destroy]
-  before_action :ensure_admin, only: [:index, :edit, :update, :destroy, :new, :create]
 
   # GET /needs
   # GET /needs.json
@@ -64,12 +63,10 @@ class NeedsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_need
-      @need = Need.find(params[:id])
+      @need = Need.friendly.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def need_params
       params.require(:need).permit(:title, :posted_at, :description, :amount_requested, :image)
     end

@@ -2,6 +2,6 @@
 class AdminMailerPreview < ActionMailer::Preview
 
   def sample_mail_preview
-    AdminMailer.sample_email(User.first)
+    AdminMailer.sample_email(Donor.first)
   end
 end

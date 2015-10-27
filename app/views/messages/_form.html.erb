@@ -12,7 +12,7 @@
   <% end %>
 
   <%= f.hidden_field :need_id, :value => Need.first.id %>
-  <%= f.hidden_field :user_id, :value => current_user.id %>
+  <%= f.hidden_field :donor_id, :value => current_donor.id %>
 
   <div class="form-group">
     <%= f.label :subject %>
@@ -28,9 +28,9 @@
   <div class='field'>
     <%= f.fields_for(:sent_messages) do |sent_fields| %>
       <div class='check_box'>
-        <%= sent_fields.check_box :user_id, {disabled: !!sent_fields.object.sent_at}, sent_fields.object.user_id %>
-        <%= sent_fields.label :user_id, sent_fields.object.user.name %>
-        <%= sent_fields.label :user_id, sent_fields.object.user.email %>
+        <%= sent_fields.check_box :donor_id, {disabled: !!sent_fields.object.sent_at}, sent_fields.object.donor_id %>
+        <%= sent_fields.label :donor_id, sent_fields.object.donor.name %>
+        <%= sent_fields.label :donor_id, sent_fields.object.donor.email %>
       </div>
     <% end %>
   </div>

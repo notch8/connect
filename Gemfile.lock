@@ -60,6 +60,7 @@ GEM
       builder (>= 2.0.0)
     builder (3.2.2)
     byebug (6.0.2)
+    cancancan (1.13.1)
     capistrano (2.14.2)
       highline
       net-scp (>= 1.0.0)
@@ -200,6 +201,8 @@ GEM
     font-awesome-rails (4.4.0.0)
       railties (>= 3.2, < 5.0)
     formatador (0.2.5)
+    friendly_id (5.1.0)
+      activerecord (>= 4.0.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     haml (4.0.7)
@@ -335,6 +338,7 @@ GEM
     remotipart (1.2.1)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
+    rolify (4.1.1)
     rspec-core (3.3.2)
       rspec-support (~> 3.3.0)
     rspec-expectations (3.3.1)
@@ -397,10 +401,12 @@ DEPENDENCIES
   bootstrap-sass (~> 3.3.4)
   braintree
   byebug
+  cancancan
   carrierwave
   coffee-rails (~> 4.1.0)
   devise
   fog
+  friendly_id
   heroku_san
   httparty (= 0.13.3)
   jbuilder (~> 2.0)
@@ -413,6 +419,7 @@ DEPENDENCIES
   rails_12factor
   rails_admin
   redactor-rails
+  rolify
   rspec-rails (~> 3.0)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
