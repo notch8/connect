@@ -12,5 +12,4 @@ class Need < ActiveRecord::Base
   def percent_complete
     (self.amount_donated / self.amount_requested.to_f) * 100
   end
-
 end

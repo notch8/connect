@@ -59,7 +59,7 @@
           </div>
         </div>
         <% end %>
-        <% if can? :edit, @need %>
+        <% if (current_user && can?(:edit, @need)) %>
           <%= link_to 'Edit Need', edit_need_path(@need), class: 'btn btn-info' %>
         <% end %>
       </div>
