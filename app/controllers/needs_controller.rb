@@ -63,11 +63,11 @@ class NeedsController < ApplicationController
   end
 
   private
-    def set_need
-      @need = Need.friendly.find(params[:id])
-    end
+  def set_need
+    @need = Need.friendly.find(params[:id])
+  end
 
-    def need_params
-      params.require(:need).permit(:title, :posted_at, :description, :amount_requested, :image)
-    end
+  def need_params
+    params.require(:need).permit(:title, :posted_at, :description, :amount_requested)
+  end
 end

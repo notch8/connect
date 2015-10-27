@@ -1,31 +1,19 @@
 <div class="container-fluid">
   <div class="container">
     <div class="row">
-      <div class='col-md-4'>
-        <div>
-          <%= image_tag @need.image.url(:medium), :class => 'img-responsive' %>
-          <!-- Go to www.addthis.com/dashboard to customize your tools -->
-          <div class="addthis_sharing_toolbox"></div>
-        </div>
-
-      </div>
-
       <div class="first_row">
-        <div class="col-md-4">
-          <h3>
-            <%= @need.title %>
-          </h3>
-        </div>
-        <div class="col-md-4">
+        <h3>
+          <%= @need.title %>
+        </h3>
+        <div class="col-md-8">
           <p class='posted_date'>
-            <strong>Posted:</strong>
+            <strong>Posted at:</strong>
             <%= @need.posted_at.to_s(:long) %>
           </p>
         </div>
       </div>
       <div class="col-md-8">
         <p>
-          <strong>Description:</strong>
           <%= @need.description.html_safe %>
         </p>
       </div>
@@ -45,8 +33,6 @@
           <%= number_to_currency @need.amount_donated %> funded to-date<br>
           <%= number_to_currency (@need.amount_requested - @need.amount_donated) %> still needed
         </p>
-      </div>
-      <div class="col-md-8">
         <%= form_for(@donation, :url => new_donation_path, :method => :get) do |f| %>
         <% if @donation.errors.any? %>
         <div id="error_explanation">
@@ -60,12 +46,12 @@
         </div>
         <% end %>
         <div class='row'>
-          <div class='col-md-2 col-md-offset-6'>
+          <div class='col-md-4'>
             <div class="field">
               <%= f.select :amount, amount_list, {}, {:class => 'easyui-combobox'} %>
             </div>
           </div>
-          <div class='col-md-2'>
+          <div class='col-md-6 col-md-offset-2'>
             <%= f.hidden_field :need_id %>
             <div class="actions">
               <%= f.submit 'Donate', :class => 'btn btn-success btn-lg' %>
@@ -73,6 +59,11 @@
           </div>
         </div>
         <% end %>
+        <% if can? :edit, @need %>
+          <%= link_to 'Edit Need', edit_need_path(@need), class: 'btn btn-info' %>
+        <% end %>
+      </div>
+      <div class="col-md-8">
       </div>
     </div>
 
@@ -90,12 +81,5 @@
         </div>
       <% end %>
     </div>
-
-    <div class='col-md-2 col-md-offset-8'>
-      <% if current_donor && current_donor.is_admin? %>
-        <%= link_to 'Edit Need', edit_need_path(@need), class: 'btn btn-info' %>
-      <% end %>
-    </div>
-
   </div>
 </div>
