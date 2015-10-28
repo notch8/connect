@@ -43,7 +43,7 @@
         <div class='col-md-9'>
           <%= link_to root_path do %>
             <% if current_organization %>
-              <%= image_tag current_organization.image.url(:thumb), class: 'img-responsive' %>
+              <%= image_tag current_organization.image.url, class: 'img-responsive' %>
             <% else %>
               <%= image_tag 'c2n-logo.png' %>
             <% end %>
