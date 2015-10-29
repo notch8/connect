@@ -8,10 +8,15 @@ Rails.application.routes.draw do
     unlocks: 'users/unlocks'
   }
 
+  devise_scope :user do
+    root 'users/sessions#new'
+  end
+
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   mount RedactorRails::Engine => '/redactor_rails'
 
   devise_for :donors, :controllers => { :omniauth_callbacks => "donors/omniauth_callbacks" }
+
 
   resources :messages
 
@@ -24,8 +29,6 @@ Rails.application.routes.draw do
   resources :donors
 
   resources :users
-
-  root 'needs#show', id: 1
 
   get 'pages/terms'
 end

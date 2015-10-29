@@ -16,9 +16,19 @@
       <div class="field edit-need-title">
         <%= f.text_field :title, placeholder: "Title" %>
       </div>
+      <div class="field edit-need-slug">
+        <div class="row">
+          <div class="col-md-8">
+            <%= root_url %>needs/<%= f.text_field :slug, placeholder: "" %>
+          </div>
+          <div class="col-md-4">
+            <span class='help-block'>This link is where you send donors</span>
+          </div>
+        </div>
+      </div>
       <div class="form-group">
         <%= f.label :description %><br>
-        <%= f.text_area :description, :class => "redactor", placeholder: "Edit your Need's description here. You can add images and formating.", style: "width: 100%; height: 15em;"  %>
+        <%= f.text_area :description, :class => "redactor", placeholder: "Edit your Need's description here. You can add images and formating.", style: "width: 100%;", rows: 30%>
       </div>
     </div>
     <div class="col-md-4">
@@ -28,7 +38,7 @@
       </div>
       <div class="field">
         <%= f.label :amount_requested %><br>
-        <%= f.text_field :amount_requested %>
+        $<%= f.number_field :amount_requested, placeholder: "amount requested" %>
       </div>
       <div>
         $XXXX funded to date
@@ -38,35 +48,19 @@
       <br><br>
       <div class="row">
         <div class="col-md-4">
-          <select class="easyui-combobox", style: "width: 100%" >
-            <option>$5</option>
-            <option>$5</option>
-          </select>
-        </div>
-        <div class="col-md-8">
-          <%= f.button :Donate, :class => "btn btn-sm btn-disabled", :disabled => true%>
-        </div>
-      </div>
-      <br>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="actions">
-            <%= f.submit class: 'btn btn-primary' %>
+          <div class="field">
+            <select disabled class='easyui-combobox'>
+              <option>$5</option>
+              <option>$500000</option>
+            </select>
           </div>
         </div>
+        <div class="col-md-6 col-md-offset-2">
+          <%= f.button :Donate, :class => "btn btn-lg btn-disabled", :disabled => true%>
+        </div>
       </div>
+      <%= f.submit class: 'btn btn-primary', value: "Save Need" %>
+
     </div>
   </div>
 <% end %>
-<div id="donor-images">
-  <div class="row">
-    <% 5.times do |index| %>
-      <div class='col-md-2 donor-image'>
-        <img src="https://placekitten.com/165/165" alt="example donor">
-        <br>
-        example donor <%= index + 1%>
-      </div>
-    <% end %>
-  </div>
-</div>
-<br>
