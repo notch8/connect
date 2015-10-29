@@ -14,7 +14,7 @@
 //= require jquery_ujs
 //= require jquery.easyui.min
 //= require bootstrap
-//= require redactor-rails
+//= require redactor-rails/redactor
 //= require redactor-rails/plugins
 //= require redactor-rails/video
 //= require redactor-rails/config
