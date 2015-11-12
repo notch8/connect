@@ -84,7 +84,7 @@ Rails.application.configure do
   # Braintree::Configuration.public_key = "2fst3wjwjr6ggstc"
   # Braintree::Configuration.private_key = "00cc35bcc61ef7d5d3e3b854b3583191"
 
-  Braintree::Configuration.environment = :production
+  Braintree::Configuration.environment = ENV['BRAINTREE_ENV']
   #Braintree::Configuration.logger = Logger.new('log/braintree.log')
   Braintree::Configuration.merchant_id = ENV['BRAINTREE_MERCHANT']
   Braintree::Configuration.public_key = ENV['BRAINTREE_PUBLIC_KEY']
