@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.2.0'
 
+gem 'airbrake'
 gem 'auto_tagger', :require => false, group: [:development, :test]
 gem 'aws-sdk', '~> 1.5.7'
 gem 'bootstrap-datepicker-rails'
@@ -22,6 +23,7 @@ gem 'mini_magick'
 gem 'omniauth-facebook'
 gem 'paperclip', '~> 4.2'
 gem 'pg'
+gem 'quiet_assets'
 gem 'rails_12factor', group: :production
 gem 'rails_admin'
 gem 'redactor-rails'
