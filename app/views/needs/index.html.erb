@@ -1,35 +1,63 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Needs</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Posted at</th>
-      <th>Description</th>
-      <th>Amount requested</th>
-      <th>Amount donated</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
+<div class="container-fluid">
+  <div class="container">
     <% @needs.each do |need| %>
-      <tr>
-        <td><%= need.title %></td>
-        <td><%= need.posted_at %></td>
-        <td><%= need.description %></td>
-        <td><%= need.amount_requested %></td>
-        <td><%= need.amount_donated %></td>
-        <td><%= link_to 'Show', need %></td>
-        <td><%= link_to 'Edit', edit_need_path(need) %></td>
-        <td><%= link_to 'Destroy', need, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <%= div_for need do%>
+        <div class="row">
+          <div class='col-md-8'>
+            <h3>
+              <%= link_to need.title, need_path(need) %>
+            </h3>
+          </div>
+          <div class="col-md-4">
+            <p class='posted_date'>
+              <strong>Posted at:</strong>
+              <%= need.posted_at.to_s(:long) %>
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-8">
+            <p>
+              <%= need.description.html_safe %>
+            </p>
+          </div>
+          <div class="col-md-4">
+            <p>
+              <strong>Amount requested:</strong>
+              <%= number_to_currency need.amount_requested %>
+            </p>
+          </div>
+          <div class="col-md-4">
+            <div class="progress">
+              <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width: <%= need.percent_complete %>%;">
+                <%= number_to_currency need.amount_donated %>
+              </div>
+            </div>
+            <p>
+              <%= number_to_currency need.amount_donated %> funded to-date<br>
+              <%= number_to_currency (need.amount_requested - need.amount_donated) %> still needed
+            </p>
+            <%= form_for(need.donations.build, :url => new_donation_path, :method => :get) do |f| %>
+            <div class='row'>
+              <div class='col-md-4'>
+                <div class="field">
+                  <%= f.select :amount, amount_list, {}, {:class => 'easyui-combobox'} %>
+                </div>
+              </div>
+              <div class='col-md-6 col-md-offset-2'>
+                <%= f.hidden_field :need_id %>
+                <div class="actions">
+                  <%= f.submit 'Donate', :class => 'btn btn-success btn-lg' %>
+                </div>
+              </div>
+            </div>
+            <% end %>
+            <% if (current_user && can?(:edit, need)) %>
+              <%= link_to 'Edit Need', edit_need_path(need), class: 'btn btn-info' %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Need', new_need_path %>
+  </div>
+</div>

@@ -1,5 +1,7 @@
 class NeedsController < ApplicationController
-  before_action :set_need, only: [:show, :edit, :update, :destroy]
+  before_filter :redirect_to_newest_url # <-- this line FIRST !
+  load_resource :find_by => :slug, :only => [:show]
+  load_and_authorize_resource :find_by => :slug, :except => [:show, :index] # <-- and then this line
 
   # GET /needs
   # GET /needs.json
@@ -71,4 +73,13 @@ class NeedsController < ApplicationController
   def need_params
     params.require(:need).permit(:title, :posted_at, :description, :amount_requested)
   end
+
+  def redirect_to_newest_url
+    @need = Need.find_by_id(params[:id])
+
+    if @need && request.path != need_path(@need)
+      return redirect_to @need, :status => :moved_permanently
+    end
+  end
+
 end

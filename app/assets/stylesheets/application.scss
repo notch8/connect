@@ -84,3 +84,9 @@ body {
 .user-image {
   min-height: 200px;
 }
+
+.need {
+  padding: 20px;
+}
+.need:nth-child(even) {background: rgba(85, 170, 204, 0.2);}
+.need:nth-child(odd) {background: #FFF}

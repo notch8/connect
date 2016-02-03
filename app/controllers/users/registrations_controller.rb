@@ -27,6 +27,8 @@ before_filter :configure_sign_up_params, only: [:create]
     else
       clean_up_passwords resource
       set_minimum_password_length
+      params[:registration] = true
+      flash[:alert] = 'We could not sign you up, please see the issues below.'
       render "/users/sessions/new"
     end
   end

@@ -23,7 +23,11 @@ class ApplicationController < ActionController::Base
       need_path(current_user.needs.first)
     elsif current_donor
       # we need to take the donor back to the need they were looking at
-      session[:previous_url]
+      if session[:previous_url].match(/needs/)
+        session[:previous_url]
+      else
+        needs_path
+      end
     else
       root_path
     end

@@ -45,7 +45,6 @@ ActiveRecord::Schema.define(version: 20151119064211) do
     t.string   "uid"
     t.string   "name"
     t.string   "facebook_image_url"
-    t.string   "customer_id"
     t.string   "braintree_last_4"
     t.string   "braintree_payment_method_token"
     t.boolean  "is_admin",                       default: false
