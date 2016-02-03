@@ -1,5 +1,7 @@
 class NeedsController < ApplicationController
-  before_filter :redirect_to_newest_url # <-- this line FIRST !
+  before_action :authenticate_user!, :except => [:show, :index]
+
+  before_action :redirect_to_newest_url # <-- this line FIRST !
   load_resource :find_by => :slug, :only => [:show]
   load_and_authorize_resource :find_by => :slug, :except => [:show, :index] # <-- and then this line
 
