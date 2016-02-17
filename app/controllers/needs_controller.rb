@@ -73,7 +73,7 @@ class NeedsController < ApplicationController
   end
 
   def need_params
-    params.require(:need).permit(:title, :posted_at, :description, :amount_requested)
+    params.require(:need).permit(:title, :posted_at, :description, :amount_requested, :slug)
   end
 
   def redirect_to_newest_url
