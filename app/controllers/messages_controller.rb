@@ -15,7 +15,7 @@ class MessagesController < ApplicationController
   # GET /messages/new
   def new
     @message = Message.new
-    @need = Need.first
+    @need = Need.find(params[:need_id])
     @need.donors.each do |donor|
       @message.sent_messages.build(donor: donor)
     end

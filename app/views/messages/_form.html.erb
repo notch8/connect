@@ -11,7 +11,7 @@
     </div>
   <% end %>
 
-  <%= f.hidden_field :need_id, :value => Need.first.id %>
+  <%= f.hidden_field :need_id, :value => @need.id %>
   <%= f.hidden_field :user_id, :value => current_user.id %>
 
   <div class="form-group">

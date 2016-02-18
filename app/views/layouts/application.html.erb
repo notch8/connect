@@ -14,7 +14,7 @@
           <div class='pull-right'>
             <% if user_signed_in? %>
               <% if @need && can?(:update, @need) %>
-                <%= link_to messages_path do %>
+                <%= link_to messages_path(need_id: @need.id) do %>
                   <span><i class='glyphicon glyphicon-envelope'></i></span> Send Message
                 <% end %>
                 |
