@@ -28,13 +28,20 @@ class UsersController < ApplicationController
   end
 
   def report
-    byebug
-    user = User.find(params[:user_id])
-    if user.has_role?(:admin)
-      return admin_csv_report
+    csv = ""
+
+    if current_user.has_role?(:admin)
+      csv = admin_csv_report
     else
-      return user_csv_report
+      csv = user_csv_report
     end
+
+    respond_to do |format|
+      format.csv {
+        render :text => csv
+      }
+    end
+
   end
 
   private
@@ -47,7 +54,7 @@ class UsersController < ApplicationController
       donations.each do |donation|
         donor = donation.donor
         need  = donation.need
-        csv << [donor.name, donor.email, donation.amount.to_s, donor.braintree_last_4, need.name, need.user.name]
+        csv << [donor.name, donor.email, donation.amount.to_s, donor.braintree_last_4, need.title, need.user.name]
       end
     end
 
@@ -63,7 +70,7 @@ class UsersController < ApplicationController
       donations.each do |donation|
         donor = donation.donor
         need  = donation.need
-        csv << [donor.name, donor.email, donor.braintree_last_4, need.name]
+        csv << [donor.name, donor.email, donor.braintree_last_4, need.title]
       end
     end
 
