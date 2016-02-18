@@ -13,6 +13,8 @@
         <div class='col-md-4 col-md-offset-8'>
           <div class='pull-right'>
             <% if user_signed_in? %>
+              <%= link_to "CSV Report", user_report_path(current_user) %>
+              |
               <% if @need && can?(:update, @need) %>
                 <%= link_to messages_path(need_id: @need.id) do %>
                   <span><i class='glyphicon glyphicon-envelope'></i></span> Send Message

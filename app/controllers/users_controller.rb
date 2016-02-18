@@ -27,6 +27,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def report
+    # hello!
+    # return a CSV report. decide if it's an admin or user report here!
+  end
+
   private
 
   def set_user

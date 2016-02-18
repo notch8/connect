@@ -27,7 +27,9 @@ Rails.application.routes.draw do
 
   resources :donors
 
-  resources :users
+  resources :users do
+    get '/report', to: 'users#report'
+  end
 
   get 'pages/terms'
 end
