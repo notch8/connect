@@ -28,11 +28,47 @@ class UsersController < ApplicationController
   end
 
   def report
-    # hello!
-    # return a CSV report. decide if it's an admin or user report here!
+    byebug
+    user = User.find(params[:user_id])
+    if user.has_role?(:admin)
+      return admin_csv_report
+    else
+      return user_csv_report
+    end
   end
 
   private
+
+  def admin_csv_report
+    donations = Donation.all
+    csv_string = CSV.generate do |csv|
+      csv << ["Donor Name", "Donor Email", "Amount", "Braintree Code", "Need Donated To", "User of Need"]
+
+      donations.each do |donation|
+        donor = donation.donor
+        need  = donation.need
+        csv << [donor.name, donor.email, donation.amount.to_s, donor.braintree_last_4, need.name, need.user.name]
+      end
+    end
+
+    return csv_string
+  end
+
+  def user_csv_report
+    donations = current_user.needs.map{|need| need.donations}.flatten
+
+    csv_string = CSV.generate do |csv|
+      csv << ["Donor Name", "Donor Email", "Braintree Code", "Need Donated to"]
+
+      donations.each do |donation|
+        donor = donation.donor
+        need  = donation.need
+        csv << [donor.name, donor.email, donor.braintree_last_4, need.name]
+      end
+    end
+
+    return csv_string
+  end
 
   def set_user
     if current_user.has_role?(:admin)
