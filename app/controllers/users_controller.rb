@@ -45,6 +45,20 @@ class UsersController < ApplicationController
 
   private
 
+
+  def set_user
+    if current_user.has_role?(:admin)
+      @user = User.find(params[:id])
+    else
+      @user = current_user
+    end
+  end
+
+  def user_params
+    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  end
+
+
   def admin_csv_report
     donations = Donation.all
     csv_string = CSV.generate do |csv|
@@ -60,7 +74,6 @@ class UsersController < ApplicationController
 
       csv << ["","","","","","", grand_total]
     end
-
 
     return csv_string
   end
@@ -80,26 +93,12 @@ class UsersController < ApplicationController
       grand_total = number_to_currency(donations.map{|donation| donation.amount}.inject(0, :+))
 
       csv << ["","","","","", grand_total]
-
     end
 
     return csv_string
   end
 
-  def set_user
-    if current_user.has_role?(:admin)
-      @user = User.find(params[:id])
-    else
-      @user = current_user
-    end
-  end
-
-  def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
-  end
-
   def number_to_currency(number)
     ActionController::Base.helpers.number_to_currency(number)
   end
-
 end
