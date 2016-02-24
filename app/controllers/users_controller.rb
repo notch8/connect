@@ -27,7 +27,24 @@ class UsersController < ApplicationController
     end
   end
 
+  def report
+    csv = ""
+    if current_user.has_role?(:admin)
+      csv = admin_csv_report
+    else
+      csv = user_csv_report
+    end
+
+    respond_to do |format|
+      format.csv {
+        render :text => csv
+      }
+    end
+
+  end
+
   private
+
 
   def set_user
     if current_user.has_role?(:admin)
@@ -41,4 +58,47 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
 
+
+  def admin_csv_report
+    donations = Donation.all
+    csv_string = CSV.generate do |csv|
+      csv << ["Donor Name", "Donor Email", "Amount", "Braintree Code", "Need Donated To", "User of Need", "Grand Total"]
+
+      donations.each do |donation|
+        donor = donation.donor
+        need  = donation.need
+        csv << [donor.name, donor.email, number_to_currency(donation.amount), donor.braintree_last_4, need.title, need.user.name, ""]
+      end
+
+      grand_total = number_to_currency(donations.map{|donation| donation.amount}.inject(0, :+))
+
+      csv << ["","","","","","", grand_total]
+    end
+
+    return csv_string
+  end
+
+  def user_csv_report
+    donations = current_user.needs.map{|need| need.donations}.flatten
+
+    csv_string = CSV.generate do |csv|
+      csv << ["Donor Name", "Donor Email", "Amount", "Braintree Code", "Need Donated To", "Grand Total"]
+
+      donations.each do |donation|
+        donor = donation.donor
+        need  = donation.need
+        csv << [donor.name, donor.email, number_to_currency(donation.amount), donor.braintree_last_4, need.title, ""]
+      end
+
+      grand_total = number_to_currency(donations.map{|donation| donation.amount}.inject(0, :+))
+
+      csv << ["","","","","", grand_total]
+    end
+
+    return csv_string
+  end
+
+  def number_to_currency(number)
+    ActionController::Base.helpers.number_to_currency(number)
+  end
 end

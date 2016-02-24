@@ -17,7 +17,6 @@ Rails.application.routes.draw do
 
   devise_for :donors, :controllers => { :omniauth_callbacks => "donors/omniauth_callbacks" }
 
-
   resources :messages
 
   resources :organizations
@@ -28,7 +27,9 @@ Rails.application.routes.draw do
 
   resources :donors
 
-  resources :users
+  resources :users do
+    get '/report', to: 'users#report'
+  end
 
   get 'pages/terms'
 end
