@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151119064211) do
+ActiveRecord::Schema.define(version: 20160526061254) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,6 +99,7 @@ ActiveRecord::Schema.define(version: 20151119064211) do
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.string   "access_code"
+    t.string   "sub_domain"
   end
 
   create_table "redactor_assets", force: :cascade do |t|

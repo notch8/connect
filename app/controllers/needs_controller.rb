@@ -8,7 +8,7 @@ class NeedsController < ApplicationController
   # GET /needs
   # GET /needs.json
   def index
-    @needs = Need.all
+    @needs = current_organization.needs.all
   end
 
   # GET /needs/1
@@ -19,7 +19,7 @@ class NeedsController < ApplicationController
 
   # GET /needs/new
   def new
-    @need = Need.new
+    @need = current_organization.needs.build
   end
 
   # GET /needs/1/edit
@@ -29,7 +29,7 @@ class NeedsController < ApplicationController
   # POST /needs
   # POST /needs.json
   def create
-    @need = Need.new(need_params)
+    @need = current_organization.needs.build(need_params)
     @need.user = current_user
 
     respond_to do |format|
@@ -69,7 +69,7 @@ class NeedsController < ApplicationController
 
   private
   def set_need
-    @need = Need.friendly.find(params[:id])
+    @need = current_organization.needs.friendly.find(params[:id])
   end
 
   def need_params

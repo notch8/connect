@@ -34,7 +34,10 @@ class ApplicationController < ActionController::Base
   end
 
   def current_organization
-    Organization.first
+    @current_organization ||= if request.subdomain && request.subdomain != 'www'
+                                Organization.where(sub_domain: request.subdomain).first
+                              end
+    @current_organization ||= Organization.first # fall back
   end
 
   protected
