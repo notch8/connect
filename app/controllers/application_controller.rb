@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :store_location
+  helper_method :current_organization
 
   def store_location
     # store last url - this is needed for post-login redirect to whatever the user last visited.
@@ -34,10 +35,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_organization
-    @current_organization ||= if request.subdomain && request.subdomain != 'www'
-                                Organization.where(sub_domain: request.subdomain).first
-                              end
-    @current_organization ||= Organization.first # fall back
+    @current_organization ||= Organization.where(sub_domain: request.subdomain).first || Organization.first # fall back
   end
 
   protected

@@ -1,7 +1,4 @@
 module ApplicationHelper
-  def current_organization
-    Organization.first
-  end
 
   def amount_list(additional_amount = 5)
     ([[number_to_currency(5, :precision => 0), 5]] +
